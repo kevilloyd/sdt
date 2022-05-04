@@ -1,13 +1,13 @@
 % initialize the most important parameters here
 
-Nsig = 6; % number of time steps per trial where the signal can come on
-Nadd = 2; % number of ADDITIONAL time steps (i.e.,  in  addition to very first step) where the signal is KNOWN TO NOT ARRIVE
+Nsig = 6; % number of time steps per trial where the signal can come on (N1)
+Nadd = 2; % number of ADDITIONAL time steps (i.e.,  in  addition to very first step) where the signal is KNOWN TO NOT ARRIVE (N0-1)
 Ntot = Nadd+Nsig; % note that this does NOT include the initial state (where certain that signal not on) or final decision state (where choose to report signal or not)
 
 p_sig = .5; % signal probability
 q = .2;     % probability per time step that the signal turns OFF if it's ON
-c_du = 1e-1;    % cost weak -> strong
-c_uu = 14e-3;   % cost strong -> strong
+c_du = 1e-1;    % cost weak -> strong (kappa, in paper)
+c_uu = 14e-3;   % cost strong -> strong (epsilon, in paper)
 mus=[0 1];  % means (signal OFF vs. ON)
 s0w =1;     % sds (w=WEAK, s=STRONG)
 s0s = .5;
@@ -31,7 +31,7 @@ nA = 2;             % 2 possible actions: 1=WEAK, 2=STRONG (i.e., attentional ac
 
 %% POMDP
 % transition function T on the partially observed states
-haz = [ zeros(1,Nadd) (p_sig/Nsig) ./ (1-p_sig.*((0:Nsig-1)./Nsig) ) ]; % i.e., hazard*dt; 
+haz = [ zeros(1,Nadd) (p_sig/Nsig) ./ (1-p_sig.*((0:Nsig-1)./Nsig) ) ]; % i.e., hazard*dt (Equation 2 in paper) 
 T = zeros(nSe,nSe,Ntot); % NB: applied at END of time step t
 T(1,2,:) = haz;
 T(1,1,:) = 1-T(1,2,:);
