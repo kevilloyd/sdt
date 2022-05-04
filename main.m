@@ -32,7 +32,7 @@ save_name = strcat( 'p',num2str(p_sig),'_q',num2str(q),'_s0w',num2str(s0w),'_s1w
     '_uu',num2str(c_uu),'_Pdecay',num2str(p_decay),'_Nsig',num2str(Nsig),'_Nadd',num2str(Nadd),'_pnum',num2str(pnum),'_interp',num2str(interp),'_samples',num2str(samples),...
     '_maxiter',num2str(max_iter),'_gauss','.mat' );
 
-% we need to derive the transition matrix over beliefs, tau_mats;
+% we need to derive the transition matrix over beliefs, tau_mats (Equations 12,13 in paper);
 % imats holds the corresponding indices of belief states and their weights;
 % note that this is a function of time;
 % we also save the (interpolated) consequences of observations for the
@@ -45,12 +45,12 @@ for att=1:2
     [tau_mats{att},imats{att},maxd(att)] = get_belief_transitions_momdp( ps, T, O{1,att}, O{2,att}, att, interp, p_decay );
 end
 
-% rewards
+% rewards (Equation 14 in paper)
 rho = zeros(npstot,2);
 rho(1:nps,2) = ps*R(1:3,2);
-rho(nps+1:end,2) = ps*R(4:6,2);
+rho(nps+1:end,2) = ps*R(4:6,2); 
 
-%% SOLVE FOR OPTIMAL POLICY
+%% SOLVE FOR OPTIMAL POLICY (cf. Equations 15 and 16 in paper)
 [a_opt, r_av, V, Q_att, a_opt_ch] = rel_value_iteration( tau_mats, rho, p_decay, ps, Ntot, max_iter, tol );
 
 if compute_alternative_policies
