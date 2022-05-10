@@ -1,7 +1,7 @@
 % initialize the most important parameters here
 
 Nsig = 6; % number of time steps per trial where the signal can come on (N1)
-Nadd = 2; % number of ADDITIONAL time steps (i.e.,  in  addition to very first step) where the signal is KNOWN TO NOT ARRIVE (N0-1)
+Nadd = 2; % number of ADDITIONAL time steps (i.e.,  in  addition to very first step) where the signal is KNOWN TO NOT ARRIVE (N0 - 1)
 Ntot = Nadd+Nsig; % note that this does NOT include the initial state (where certain that signal not on) or final decision state (where choose to report signal or not)
 
 p_sig = .5; % signal probability
