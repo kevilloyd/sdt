@@ -1,15 +1,15 @@
 % Solve simple signal detection problem for optimal attentional actions.
 % (runs successfully with Matlab R2020b)
 
-% main output is beliefs(Nsig+1,Nsig+1,Ntot+2,6,2), where:
+% main output is beliefs(Nsig+1,Nsig+1,Ntot+2,6,2), which holds the expected belief and attention dynamics 
+% for each possible onset and offset of the signal under the optimal attentional policy, where:
 % Nsig: number of time steps when signal can come on
 % Ntot: total number of time steps, excluding first step and final decision step
 % 6 = number of hidden experiment states(3) x number of possible attentional states(2)
-% 2 = either starting a trial with 1) WEAK attention or 2)STRONG
-% attention
+% 2 = either starting a trial with 1) WEAK attention or 2)STRONG attention
 %
 % e.g. beliefs(start,stopper,t,1:3,1) is the case that the signal comes on at 'start'
-% and off at 'stopper'; at step t, how much belief is there in the WEAK attention versions of
+% and off at 'stopper'; at time step t, tells us how much belief is there in the WEAK attention versions of
 % states 1-3; this is for the case where the trial starts with WEAK attention (last argument=1).
 %
 % beliefs(start,stopper,t,4:6,1) is the same for the STRONG attention case,
@@ -31,7 +31,7 @@ save_name = strcat( 'p',num2str(p_sig),'_q',num2str(q),'_s0w',num2str(s0w),'_s1w
     '_uu',num2str(c_uu),'_Pdecay',num2str(p_decay),'_Nsig',num2str(Nsig),'_Nadd',num2str(Nadd),'_pnum',num2str(pnum),'_interp',num2str(interp),'_samples',num2str(samples),...
     '_maxiter',num2str(max_iter),'_gauss','.mat' );
 
-% we need to derive the transition matrix over beliefs, tau_mats (Equations 12,13 in paper);
+% we first need to derive the transition matrix over beliefs, tau_mats (Equations 12,13 in paper);
 % imats holds the corresponding indices of belief states and their weights;
 % note that this is a function of time;
 % we also save the (interpolated) consequences of observations for the
