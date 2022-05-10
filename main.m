@@ -2,17 +2,16 @@
 % (runs successfully with Matlab R2020b)
 
 % main output is beliefs(Nsig+1,Nsig+1,Ntot+2,6,2), where:
-% Nsig: numben of steps when signal can come on
-% Ntot: total number of steps, excluding first step and final decision step
-% 6 = number of hidden expt states x number of possible attentional states
-% 2 is either starting a trial with WEAK attention (1) or with STRONG
-% attention (2)
+% Nsig: number of time steps when signal can come on
+% Ntot: total number of time steps, excluding first step and final decision step
+% 6 = number of hidden experiment states(3) x number of possible attentional states(2)
+% 2 = either starting a trial with 1) WEAK attention or 2)STRONG
+% attention
 %
-% e.g. beliefs(start,stopper,t,1:3,1) is the case that the signal comes on at start
-% and off at stopper; so on time step t, how much belief is there in the WEAK attention versions of
-% states 1-3; this is for the case where attention is WEAK (last argument=1) at the start of
-% the trial (if last argument=2, is the case where attention ON at start of
-% trial).
+% e.g. beliefs(start,stopper,t,1:3,1) is the case that the signal comes on at 'start'
+% and off at 'stopper'; at step t, how much belief is there in the WEAK attention versions of
+% states 1-3; this is for the case where the trial starts with WEAK attention (last argument=1).
+%
 % beliefs(start,stopper,t,4:6,1) is the same for the STRONG attention case,
 % starting the trial with attention WEAK.
 %
