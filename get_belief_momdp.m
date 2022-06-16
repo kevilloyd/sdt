@@ -34,13 +34,6 @@ for n=1:N-1 % for all time steps except the final decision state
         idx(:,:) = imats{act}(ii,:,n,:,1);
         weights(:,:) = imats{act}(ii,:,n,:,2);
         tau_mat(i,(act-1)*nps+(1:max(idx(:))),n) = tau_mat(i,(act-1)*nps+(1:max(idx(:))),n) + accumarray( idx(:), weights(:).*repmat(O{1+onoff(n),act}',interp,1) )'; 
-%         for j=1:nx
-%             if lesion
-%                 tau_mat(i,(act-1)*nps+idx(j,:),n) =  tau_mat(i,(act-1)*nps+idx(j,:),n) + weights(j,:)*O{1+onoff(n),1}(j);
-%             else
-%                 tau_mat(i,(act-1)*nps+idx(j,:),n) =  tau_mat(i,(act-1)*nps+idx(j,:),n) + weights(j,:)*O{1+onoff(n),act}(j);
-%             end
-%        end
     end
 end
 % what about the decision state (where there are no observations)?

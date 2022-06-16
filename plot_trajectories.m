@@ -1,5 +1,5 @@
-function [ftraj_w,ftraj_s,ftraj_av] = plot_trajectories( beliefs, beliefs_samp, av_beliefs_on, av_beliefs_on_samp, av_beliefs_off, av_beliefs_off_samp,...
-    av_beliefs_on0_samp, av_beliefs_on1_samp, av_beliefs_off0_samp, av_beliefs_off1_samp, Nadd, q)
+function [ftraj_w,ftraj_s,ftraj_av] = plot_trajectories( beliefs, ~, av_beliefs_on, av_beliefs_on_samp, av_beliefs_off, av_beliefs_off_samp,...
+    av_beliefs_on0_samp, av_beliefs_on1_samp, av_beliefs_off0_samp, av_beliefs_off1_samp, Nadd, ~)
 
 % plot average trajectories
 
@@ -51,7 +51,6 @@ end
 ftraj_av = figure();
 htraj_av = tiledlayout(1,2, 'Padding', 'none', 'TileSpacing', 'compact'); 
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-% 0.0174    0.4508    0.4672    0.4325
 for i=1:2
     ax = nexttile;    
     tstep = i;
@@ -73,10 +72,6 @@ for i=1:2
     xlabel(ax, 'time step', 'FontSize', default_axlabels_size,'FontName','Arial')  
 end
 %% location of subpart on figure
-% xstart=.83;
-% xend=.98;
-% ystart=.75;
-% yend=.95;
 xstart=.53;
 xend=.68;
 ystart=.7;
@@ -195,15 +190,10 @@ sgtitle('average, NON-SIGNAL trial')
  %%
 sig_length = 3; % which signal length are we interested in as an example?
 num_plots = Nsig-sig_length+1;
-% ncols = ceil( num_plots/4 );
-% nrows = ceil(num_plots/ncols);
 ncols = 4; nrows = 1;
-% ncols = 6; nrows=1;
 %
 ftraj_w = figure;
 htraj_w = tiledlayout(nrows,ncols, 'Padding', 'none', 'TileSpacing', 'compact'); 
-% set(ftraj_w, 'position', [0.0539    0.5550    0.4201    0.3208]);
-% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 for i=1:num_plots  
     ax = nexttile;    
     tstep = i;
@@ -246,7 +236,6 @@ tt = title(htraj_s, 'start trial STRONG');
 set(tt,'FontName','Arial','FontSize',default_title_size)
 
 %% put the previous 2 plots into a single plot?
-% close all
 sig_length = 3; % which signal length are we interested in as an example?
 num_plots = (Nsig-sig_length+1)*2;
 nrows = ceil( num_plots/4 );
@@ -283,7 +272,5 @@ for i=1:num_plots/2
         xlabel(ax, 'time step', 'FontSize', default_axlabels_size,'FontName','Arial')
     end  
 end
-% set(tt,'FontName','Arial','FontSize',default_title_size)
-
 
 end

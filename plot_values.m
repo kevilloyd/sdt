@@ -5,8 +5,6 @@ function [fhAw, fhAs, fhVw, fhQdiffw, fhQdiffs] = plot_values( V, Q, a_opt, ps, 
 default_font_size = 8;
 default_axlabels_size = 10;
 default_title_size = 12;
-default_width = 5.2;
-default_height = 6;
 
 [npstot,N] = size(V);
 nps=npstot/2;
@@ -74,12 +72,9 @@ for i=1:num_plots
     imagesc( [0 1], [0 1], Vv_weak{tstep}(:,:,1), [Vmin-.005,Vmax] );
     set(gca,'xtick',[0:.5:1],'ytick',[0:.5:1]);
     cmap = flipud(gray(256));
-%     cmap = cmap([1 5:end],:);
     colormap(cmap);
-%         colormap( [1 1 1; parula(256)] )
     axis square
     cbar = colorbar;
-%     set(cbar,'Limits',[0.5 1],'Ticks',0.5:.1:1)
     xlabel('P(post-signal)', 'FontSize', default_axlabels_size,'FontName','Arial')
     ylabel('P(signal on)', 'FontSize', default_axlabels_size,'FontName','Arial')
     set(get(cbar,'title'),'string','V*')
@@ -100,9 +95,7 @@ for i=1:num_plots
     imagesc( [0 1], [0 1], Qqdiff_weak{tstep}, [Qdiff_down_min-.005,Qdiff_down_max] );
     set(gca,'xtick',[0:.5:1],'ytick',[0:.5:1]);
     cmap = flipud(gray(256));
-%     cmap = cmap([1 5:end],:);
     colormap(cmap);
-%         colormap( [1 1 1; parula(256)] )
     axis square
     cbar = colorbar;
     xlabel('P(post-signal)', 'FontSize', default_axlabels_size,'FontName','Arial')
@@ -124,10 +117,7 @@ for i=1:num_plots
     tstep = i;
     imagesc( [0 1], [0 1], Qqdiff_strong{tstep}, [Qdiff_up_min-.005,Qdiff_up_max] );
     set(gca,'xtick',[0:.5:1],'ytick',[0:.5:1]);
-%     cmap = flipud(gray(256));
-%     cmap = cmap([1 5:end],:);
-%     colormap(cmap);
-        colormap( [1 1 1; parula(256)] )
+    colormap( [1 1 1; parula(256)] )
     axis square
     cbar = colorbar;
     xlabel('P(post-signal)', 'FontSize', default_axlabels_size,'FontName','Arial')

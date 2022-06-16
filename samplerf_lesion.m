@@ -1,7 +1,8 @@
-function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_lesion_gauss(ps,T,O,a_opt,start,stopper,samples,interp,att_start,p_decay)
+function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_lesion(ps,T,O,a_opt,start,stopper,samples,interp,att_start,p_decay)
 
-% many sample belief trajectories given optimal policy
-%
+% many sample belief trajectories given optimal policy; all observations are generated as if always in weak
+% attentional state, though not necessarily treated as such!
+
 % INPUTS
 % ps: all possible beliefs
 % T: transition matrix
@@ -13,9 +14,7 @@ function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_lesion_gauss(p
 % interp: number of belief points to interpolate
 % att_start: initial attentional state at start of trial (1=WEAK, 2=STRONG)
 % p_decay: probability of decay to WEAK at start of next trial, even if
-%               chose STRONG at decision state of previous trial
-% lesion: if true, then all observations are generated as if always in weak
-% attentional state, though not necessarily treated as such!
+%               chose STRONG at decision state of previous trial 
 %
 % OUTPUTS
 % nicebel: average belief trajectory overall
@@ -28,8 +27,6 @@ function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_lesion_gauss(p
 nSe=size(T,1);
 N=size(T,3); 
 nps=size(ps,1);
-
-psmunge=[ps' 0*ps'; 0*ps' ps'];
 
 nicebel = zeros(N+1,6,samples);
 nicebel1=zeros(N+1,6);

@@ -18,7 +18,7 @@ p_decay = 0.001; % assume that before starting next trial, there is some probabi
 stds=[s0w s0s; s1w s1s]; % stds for off and on states (rows), without and with attn. (columns) 
 
 max_iter = 100; % maximum iterations for value iteration; set this to 1 to solve for single-trial case
-pnum=20;        % granularity of belief space
+pnum=20;        % sets granularity of belief space by specifying a number of points on [0,1]
 quarts=50;      % number of quantiles for observations x (since the observations continuous)
 samples=2000;   % number of sample trajectories (to compare against exact solution)
 interp = 3;     % number of belief points to interpolate
@@ -30,7 +30,7 @@ nStot = nSi*nSe;    % therefore total number of states
 nA = 2;             % 2 possible actions: 1=WEAK, 2=STRONG (i.e., attentional action)
 
 %% POMDP
-% transition function T on the partially observed states
+% transition function T on the partially observed states (cf. tables in Fig.1C,D)
 haz = [ zeros(1,Nadd) (p_sig/Nsig) ./ (1-p_sig.*((0:Nsig-1)./Nsig) ) ]; % i.e., hazard*dt (Equation 2 in paper) 
 T = zeros(nSe,nSe,Ntot); % NB: applied at END of time step t
 T(1,2,:) = haz;
@@ -89,7 +89,7 @@ ons=zeros(Ntot+1,Ntot+1);
 noton=(1-haz);
 cnot=[1 cumprod(noton)];
 onher=haz.*cnot(1:(end-1)); % the signal can come on at any time
-afteroff=[q*((1-q).^(0:(Nsig-1)))]; % once the signal comes on, there is constant probability q that it turns off
+afteroff=q*((1-q).^(0:(Nsig-1))); % once the signal comes on, there is constant probability q that it turns off
 ons(Nadd+1,Nadd+1)=1-sum(onher);
 for start=Nadd+1:Ntot
     ons(start,start+(0:(Ntot-start)))=afteroff(1:(Ntot-start+1));

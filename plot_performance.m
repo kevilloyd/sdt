@@ -1,4 +1,4 @@
-function [fdprime, fdprime_ov] = plot_performance( prs, prs_samp, ons, Nadd, q )
+function [fdprime, fdprime_ov] = plot_performance( prs, ~, ons, Nadd, q )
 
 % here we want to look at d-prime
 
@@ -27,7 +27,6 @@ fs = zeros(size(hs));
 fs(:,:,1) = F(1);
 fs(:,:,2) = F(2);
 crit = -.5.*(norminv(hs)+norminv(fs));
-% crit(:,:,2) = -.5.*norminv(hs(:,:,2))+norminv(F);
 if q<1e-3 % this means that once on, always stays on
     for att=1:2
         for i=1:N
@@ -52,7 +51,6 @@ if q<1e-3 % since the signal always stays on once on, just look at performance a
     plot((1+Nadd+1):(N+Nadd), dprime_overall(:,2),'k--v','markerSize',10,'MarkerFaceColor','k')
     leg = legend({'OFF','ON'},'Location','SouthEast');
     title(leg, 'start att.');
-%     set(gca,'xlim',[1.8 N+1.2],'ylim',[0 max(max(dprime_overall))+.2],'ytick',0:1:ceil(max(max((dprime_overall)))) )
     xlabel('signal start')
     ylabel('d-prime')
     title('overall d-prime')
@@ -68,7 +66,6 @@ else
     ylabel('signal on)')
     title('start trial attention WEAK')
     subplot(1,2,2)
-%     figure
     imagesc( dprime(:,:,2), [0-.1 dprime_max] );
     colormap( [1 1 1; parula(256)] )
     set(gca,'xtick',1:1:10,'ytick',1:1:10,'xticklabel',Nadd+2:Nadd+N+1,'yticklabel',Nadd+2:Nadd+N+1)
@@ -78,7 +75,6 @@ else
     ylabel('signal on)')
     title('start trial attention STRONG')
     sgtitle('d-prime')
-%     markers = {'o','*','x','v','d','^','s','>','<','+'};
     markers = {'o','v','d','^','s','>','<'};
     colours = lines(N);
     attstrs = {' WEAK',' STRONG'};
@@ -88,11 +84,7 @@ else
     hold on
     for att = 1:2
         for i=1:N
-%             dds = diag(dprime(:,:,2),i-1);
-%             ddw = diag(dprime(:,:,1),i-1);
-%             diff = dds - ddw;
             marker = markers{max(1,mod(i,length(markers)))};
-%             plot( ax, 1:1:(N-i+1), diff, 'color', colours(i,:), 'linestyle','--', 'marker', marker, 'markerSize', 10 )
             if att==1
                 plot( ax, 1:1:(N-i+1), diag(dprime(:,:,att+1),i-1), 'color', colours(i,:), 'linestyle','--', 'marker', marker, 'markerSize', 10, 'MarkerFaceColor', colours(i,:) )
             else
@@ -107,7 +99,6 @@ else
     ylabel('d-prime') 
     %
     fdprime_ov = figure();
-%     set(fdprime_ov, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
     hold on
     plot(flipud(dprime_overall(:,1)),'k--o','markerSize',10)
     plot(flipud(dprime_overall(:,2)),'k--o','markerSize',10,'MarkerFaceColor','k')
@@ -116,9 +107,6 @@ else
     set(gca,'xlim',[.8 N+.2],'xtick',1:1:N, 'xticklabel',N:-1:1 , 'ylim',[0 4],'ytick',0:1:4 )
     xlabel('signal duration')
     ylabel('d-prime')
-%     tt = title('overall d-prime');
-%     set(tt,'FontName','Arial','FontSize',default_title_size)
-    %
 end
 
 end

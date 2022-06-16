@@ -1,7 +1,7 @@
 function [ beliefs, beliefs_samp, beliefs_samp0, beliefs_samp1, prs, prs_samp, Patton_samp ] = compute_trajectories(...
                                                                 a_opt, a_opt_ch, imats, T, O, ps, p_decay, Nadd, Nsig, samples, interp )
 
-% take a policy, and work out what the trajectories are going to be like
+% take a policy, and work out what the trajectories are going to be like (see Section 2.3 and Fig.4 of manuscript)
 
 % INPUTS
 % a_opt: the policy of interest
@@ -9,12 +9,12 @@ function [ beliefs, beliefs_samp, beliefs_samp0, beliefs_samp1, prs, prs_samp, P
 % imats: transition function for beliefs
 % T: transition function for underlying states
 % O: observation function
-% ps:
-% p_decay:
-% Nadd:
-% Nsig:
-% samples:
-% interp:
+% ps: all possible beliefs
+% p_decay: probability of decaying strong -> weak between trials, even if chose strong (cf. lower table in Fig.1E)  
+% Nadd: number N_0 of time steps where it is known that no signal can be present 
+% Nsig: number N_1 of time steps during which a signal may arrive
+% samples: number of samples for sampling solution
+% interp: number of belief points to interpolate 
 
 nStot = 6;
 Ntot = Nadd+Nsig;

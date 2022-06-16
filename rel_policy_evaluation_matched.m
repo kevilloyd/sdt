@@ -10,12 +10,12 @@ function [r_av, v] = rel_policy_evaluation_matched( a_opt, tau_mats, rho, p_deca
 % p_decay:
 % ps: beliefs
 % Ntot: number of trial states (excluding initial and decision)
-% max_iter:
-% tol:
+% max_iter: maximum number of iterations
+% tol: minimum change in value function to accept convergence
 % 
 % OUTPUTS
-% r_av:
-% v:
+% r_av: average reward rate
+% v: value function
 
 nps=size(ps,1);
 pstot = [ps; ps]; 
@@ -23,9 +23,8 @@ npstot=size(pstot,1);
 
 v = zeros(npstot,Ntot+2); % relative value of occupying each state at each timestep; +2 because of initial state and final state where decision made
 vnew = v;
-Q_att = zeros(npstot,Ntot+2,2); % value of attention action (WEAK(1) or STRONG(2)) at each state, and at each timestep
 Q_ch = zeros(npstot,2); % just applies to the choice of whether to report a signal or not
-% final reward : here we assume always 0,1 at the end
+% final reward : here we assume always a binary reward of either 0 (if incorrect) or 1 (if correct) at the end
 Q_ch(:,1) = pstot(:,1); % report 'no signal'
 Q_ch(:,2) = (pstot(:,2)+pstot(:,3)); % report 'signal'
 [V_ch,~] = max( [Q_ch(:,1) Q_ch(:,2)], [], 2 );

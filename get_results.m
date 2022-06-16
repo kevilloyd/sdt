@@ -5,6 +5,7 @@ function [av_beliefs, av_beliefs_on, av_beliefs_off, av_beliefs_samp, av_beliefs
                                 get_results( beliefs, beliefs_samp, beliefs_samp0, beliefs_samp1, ons, prs, prs_samp, Patton_samp, Nadd, Nsig  )
 
 % some additional post-processing to extract further quantities of interest
+
 % INPUTS
 % beliefs: exact average belief trajectories by each possible onset and offset
 % beliefs_samp: sampled equivalent of previous
@@ -17,7 +18,32 @@ function [av_beliefs, av_beliefs_on, av_beliefs_off, av_beliefs_samp, av_beliefs
 % Nadd: number of initial non-signal states (in addition to the very first time step)
 % Nsig: number of signal states
 % 
-% OUTPUTS (many: see above)
+% OUTPUTS 
+% av_beliefs: average overall belief trajectory
+% av_beliefs_on: average belief trajectory conditional on signal ON
+% av_beliefs_off: "                  "                "          OFF
+% av_beliefs_samp: sampling versions of above
+% av_beliefs_on_samp: "                      "
+% av_beliefs_off_samp: "                     "
+% av_beliefs_on0_samp:  conditioned on both signal ON and report  'NO SIGNAL'
+% av_beliefs_on1_samp:  "                        " ON "        "  'SIGNAL'
+% av_beliefs_off0_samp: "                        " OFF "        " 'NO SIGNAL'
+% av_beliefs_off1_samp: "                        " OFF "        " 'SIGNAL'
+% dprime: sensitivities for all possible times on and off
+% dprime_av: sensitivities averaging over previous
+% F: false alarm rate
+% H: hit rate
+% dprime_overall: overall sensitivity
+% crit: criterion
+% dprime_samp:         sampled versions of above
+% dprime_av_samp:      "                       "
+% F_samp:              "                       "
+% H_samp:              "                       "
+% dprime_overall_samp: "                       "
+% crit_samp:           "                       "
+% Patton_overall: overall probabilities of strong given initial attentional state
+% Patton_off:     "                        "                   "                " and signal OFF
+% Patton_on:      "                        "                   "                " and signal ON
 
 % for when conditioning on cases where signal on
 weights_on = ons(Nadd+1:end-1,Nadd+1:end)/(1-ons(end,end));

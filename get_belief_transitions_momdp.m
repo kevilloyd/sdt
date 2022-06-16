@@ -61,7 +61,6 @@ for n=1:N-1 % for all but the last step (i.e., the decision state)
         weights(:,:) = imat(ii,:,n,:,2);
         for j=1:nx % for each possible observation
             tau_mat(i,(att-1)*nps+idx(j,:),n) =  tau_mat(i,(att-1)*nps+idx(j,:),n) + weights(j,:)*(ps(ii,:)*[pxof(j) pxon(j) pxof(j)]');
-%             tau_mat(i,(att-1)*nps+squeeze(imat(ii,j,n,:,1)),n) =  tau_mat(i,(att-1)*nps+squeeze(imat(ii,j,n,:,1)),n) + squeeze(imat(ii,j,n,:,2))'*(ps(ii,:)*[pxof(j) pxon(j) pxof(j)]');
         end
     end
 end
